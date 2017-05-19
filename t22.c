@@ -1,5 +1,10 @@
+/*
+*	T22 _ Algoritimos II
+*	Integrantes: Francis Luis // Guilherme A. Reinheimer // Luis Gustavo Moretto
+* 	Data: 19 de Maio, 2017
+*/
 #include <stdio.h>
-#define TAM 3
+#define TAM 10
 
 int itemA (int x[],int y[], int xy[][TAM], int tam){
 	int i, j;
@@ -15,10 +20,10 @@ int itemA (int x[],int y[], int xy[][TAM], int tam){
 double itemB (double z[], double p[], double zp[][TAM], int tam){
 	int i, j;
 	for(i=0;i<tam;i++){
-		z[i] = 0.1;
-		p[i] = 0.2;
+		z[i] = 0;
+		p[i] = 0;
 		for(j=0;j<tam;j++){
-			zp[i][j] = 0.3;
+			zp[i][j] = 0;
 		}	
 	}
 }
@@ -42,16 +47,18 @@ double itemD (double z[], int tam){
 }
 
 int itemE (int x[], int y[], int xy[][TAM], int tam){
-	int i, u, maior;
+	int i, u, maior, maiorS = 0;
 	for(i=0;i<tam;i++){
 		maior = x[i];
 		if(y[i] > maior){
 			maior = y[i];
 		}
+		maiorS += maior;
 		for(u=0;u<tam;u++){
-			xy[i][u] = (maior * u) + 1;
+			xy[i][u] = (maior * u);
 		}
-	}	
+	}
+	return (maiorS);	
 }
 
 double itemF (double z[], double p[], double zp[][TAM], int tam){
@@ -59,97 +66,45 @@ double itemF (double z[], double p[], double zp[][TAM], int tam){
 	double maior, media = 0, mediaF;
 	for(i=0;i<tam;i++){
 		maior = z[i];
-		if(p[i] > maior){
+		if(p[i] >= maior){
 			maior = p[i];
 		}
 		for(u=0;u<tam;u++){
-			zp[i][u] = (maior / u);
+			if(u == 0){
+				zp[i][u] = (maior * u);
+			}else{
+				zp[i][u] = (maior / u);
+			}				
+		}
+	}
+	for(i=0;i<tam;i++){
+		for(u=0;u<tam;u++){
 			if(i == u){
 				media += zp[i][u];
 			}
 		}
 	}
-	//mediaF = media / tam;
-	printf("%lf\n",media);
-	//printf("\n %lf / %d =  %lf \n",media, tam, mediaF);
+	mediaF = media / tam;
+	return (mediaF);
 }
 
 
 main(){
+
 	int x[TAM], y[TAM], xy[TAM][TAM];
-	double z[TAM], p[TAM], zp[TAM][TAM];
-	int i, j;
+	double z[TAM], p[TAM], zp[TAM][TAM], mediaDoub;
+	int i, j, maiorInt;
 
-	//itemA(x, y, xy, TAM);
-	/*for(i=0;i<TAM;i++){
-		printf("x = %d || y = %d\n",x[i],y[i]);
-		for(j=0;j<TAM;j++){
-			printf("xy = %d\n",xy[i][j]);
-		}	
-	} */
-
-	//itemB(z, p, zp, TAM);
-	/*for(i=0;i<TAM;i++){
-		printf("z = %.1lf || p = %.1lf\n",z[i], p[i]);
-		for(j=0;j<TAM;j++){
-			printf("zp = %.1lf\n",zp[i][j]);
-		}	
-	} */
-
-//	itemC(x, TAM);
-//	itemC(y, TAM);
-
+	itemA(x, y, xy, TAM);
+	itemB(z, p, zp, TAM);
+	itemC(x, TAM);
+	itemC(y, TAM);
 	itemD(z, TAM);
 	itemD(p, TAM);
 
-	/*
-	for (i = 0; i < TAM; i++){
-		printf("y = %d 		|| 		x = %d\n",y[i], x[i]);
-	}
-	printf("\n\n");
-	for (i = 0; i < TAM; i++){
-		printf("z = %lf 		|| 		p = %lf\n",z[i], p[i]);
-	} */
-//	itemE(x, y, xy, TAM);
+	maiorInt = itemE(x, y, xy, TAM);
+	mediaDoub = itemF(z, p, zp, TAM);
 
-	itemF(z, p, zp, TAM);
-
-
- 
+	printf("O Maior Inteiro = %i\n",maiorInt);
+	printf("A Media Ponto Flutuante = %lf\n",mediaDoub); 
 }
-
-/*
- dois vetores de inteiros
-- dois vetores de doubles
-- uma matriz de inteiros
-- uma matriz de double
-
-Todos de TAM tamanho, sendo TAM um define declarado como 10 (inicialmente).
-As matrizes tem TAM linhas e TAM colunas.
-
-Considere que o TAM pode mudar a qualquer momento, e que deve ser 
-suficiente apenas alterar o define.
-
-
-A) Faça uma função que receba um vetor de inteiros e inicialize todos
-os seus elementos (coloque zero dentro). Invoque-a no main para inicializar
-os três vetores de inteiros criados.
-
-C) Faça uma função que receba um vetor de inteiros. A função deve imprimir
-uma mensagem solicitando que o usuário digite cada um dos elementos. A função
-deve ler estes elementos digitados e colocar no vetor. No main, invoque a
-função para dois vetores criados.
-
-E) Faça uma função que receba dois vetores de inteiros e a matriz de inteiros
-A função deve colocar na matriz o maior elemento entre os dois vetores multiplicado
-pelo indice da matriz mais um:
-
- m[0][0] = maior entre v1[0] e v2[0] * 1 (linha 1)
- m[1][4] = maior entre v1[4] e v2[4] * 2 (linha 2)
-
-A função deve retornar a soma do N maiores elementos encontrado nos vetores.
-
-F) Faça uma função idêntica ao item E, porém para o caso dos vetores de
-doubles e dividindo pela linha.
-A função deve retornar a media de todos os elementos da diagonal da matriz
-*/
