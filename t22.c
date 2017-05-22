@@ -1,10 +1,6 @@
-/*
-*	T22 _ Algoritimos II
-*	Integrantes: Francis Luis // Guilherme A. Reinheimer // Luis Gustavo Moretto
-* 	Data: 19 de Maio, 2017
-*/
 #include <stdio.h>
-#define TAM 10
+#define TAM 5
+#define MAX TAM * 2
 
 int itemA (int x[],int y[], int xy[][TAM], int tam){
 	int i, j;
@@ -16,7 +12,6 @@ int itemA (int x[],int y[], int xy[][TAM], int tam){
 		}	
 	}
 }
-
 double itemB (double z[], double p[], double zp[][TAM], int tam){
 	int i, j;
 	for(i=0;i<tam;i++){
@@ -27,56 +22,105 @@ double itemB (double z[], double p[], double zp[][TAM], int tam){
 		}	
 	}
 }
-
-int itemC (int x[], int tam){
+int itemC (int vet[], int tam){
 	int i;
-	printf("Digite alguns valores inteiros... \n");
+	printf("Digite %d inteiros... \n",tam);
 	for(i=0;i<tam;i++){
-		printf(">>> ");
-		scanf("%d",&x[i]);
+		scanf("%i",&vet[i]);
 	}
 }
-
 double itemD (double z[], int tam){
 	int i;
-	printf("Digite alguns valores com ponto flutuante... \n");
-	for (int i = 0; i < tam; i++){
-		printf(">>> ");
+	printf("Digite %d ponto flutuante... \n",tam);
+	for (i=0;i<tam;i++){
 		scanf("%lf",&z[i]);
 	}
 }
+int itemE (int x[], int y[], int xy[][TAM], int tam, int tamM){
+	int i, u, maior, maiorS = 0, controle;
+	int vet[tamM];
 
-int itemE (int x[], int y[], int xy[][TAM], int tam){
-	int i, u, maior, maiorS = 0;
+	//Carrega a Matrix
 	for(i=0;i<tam;i++){
-		maior = x[i];
-		if(y[i] > maior){
-			maior = y[i];
-		}
-		maiorS += maior;
+		controle = i + 1;
 		for(u=0;u<tam;u++){
-			xy[i][u] = (maior * u);
+			maior = x[u];
+			if(y[u] > maior){
+				maior = y[u];
+			}
+			xy[i][u] = (maior * controle);			
 		}
 	}
-	return (maiorS);	
+	
+	for(i=0;i<tam;i++){
+		vet[i] = x[i];
+	}
+	u=0;	
+	for(i=tam;i<tamM;i++){
+		vet[i] = y[u];
+		u++;
+	}
+
+	for(i=0;i<tamM;i++){
+		printf("vet[%i] = %i \n",i,vet[i]);
+	}
+
+	int aux=0, soma=0;
+ 
+	for(i=0; i<tamM; i++){ 
+		for(u=0; u<tamM; u++){ 
+      		if(vet[i] > vet[u]){
+                aux = vet[i];
+                vet[i] = vet[u];
+                vet[u] = aux;
+      		}
+    	} 
+  	} 
+	
+	for(i=0;i<tam;i++){
+		soma += vet[i];	
+	}
+
+	printf("\nSOMA EH %i \n",soma);
+
+
+
+
+
+	/* Imprime matriz
+	for(i=0;i<tam;i++){
+		for(u=0;u<tam;u++){
+			printf("%5d",xy[i][u]);
+		}
+		printf("\n");
+	}
+	*/
+
+	
+	
+	//return (maiorS);	
 }
 
 double itemF (double z[], double p[], double zp[][TAM], int tam){
-	int i, u;
+	int i, u, controle;
 	double maior, media = 0, mediaF;
 	for(i=0;i<tam;i++){
-		maior = z[i];
-		if(p[i] >= maior){
-			maior = p[i];
-		}
+		controle = i + 1;
 		for(u=0;u<tam;u++){
-			if(u == 0){
-				zp[i][u] = (maior * u);
-			}else{
-				zp[i][u] = (maior / u);
-			}				
+			maior = z[u];
+			if(p[u] > maior){
+				maior = p[u];
+			}
+			zp[i][u] = (maior / controle);							
 		}
-	}
+	}/*
+	for(i=0;i<tam;i++){
+		for(u=0;u<tam;u++){
+			printf("%.1lf ",zp[i][u]);
+		}
+		printf("\n");
+	}*/
+
 	for(i=0;i<tam;i++){
 		for(u=0;u<tam;u++){
 			if(i == u){
@@ -84,8 +128,10 @@ double itemF (double z[], double p[], double zp[][TAM], int tam){
 			}
 		}
 	}
+
 	mediaF = media / tam;
-	return (mediaF);
+	printf("A media da diagonal da matriz de doubles eh %lf\n",mediaF);
+	//return (mediaF);
 }
 
 
@@ -96,15 +142,17 @@ main(){
 	int i, j, maiorInt;
 
 	itemA(x, y, xy, TAM);
-	itemB(z, p, zp, TAM);
+	//itemB(z, p, zp, TAM);
 	itemC(x, TAM);
 	itemC(y, TAM);
-	itemD(z, TAM);
-	itemD(p, TAM);
+	
+	//itemD(z, TAM);
+	//itemD(p, TAM);
 
-	maiorInt = itemE(x, y, xy, TAM);
-	mediaDoub = itemF(z, p, zp, TAM);
-
-	printf("O Maior Inteiro = %i\n",maiorInt);
-	printf("A Media Ponto Flutuante = %lf\n",mediaDoub); 
+	//maiorInt = itemE(x, y, xy, TAM);
+	itemE(x, y, xy, TAM, MAX);
+	//mediaDoub = itemF(z, p, zp, TAM);
+	//itemF(z, p, zp, TAM);
+	//printf("SOMA = %i\n",maiorInt);
+	//printf("MEDIA = %lf\n",mediaDoub); 
 }
