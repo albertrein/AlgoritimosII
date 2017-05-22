@@ -81,10 +81,7 @@ int itemE (int x[], int y[], int xy[][TAM], int tam, int tamM){
 		soma += vet[i];	
 	}
 
-	printf("\nSOMA EH %i \n",soma);
-
-
-
+	//printf("\nSOMA EH %i \n",soma);
 
 
 	/* Imprime matriz
@@ -94,11 +91,8 @@ int itemE (int x[], int y[], int xy[][TAM], int tam, int tamM){
 		}
 		printf("\n");
 	}
-	*/
-
-	
-	
-	//return (maiorS);	
+	*/	
+	return (soma);	
 }
 
 double itemF (double z[], double p[], double zp[][TAM], int tam){
@@ -130,8 +124,8 @@ double itemF (double z[], double p[], double zp[][TAM], int tam){
 	}
 
 	mediaF = media / tam;
-	printf("A media da diagonal da matriz de doubles eh %lf\n",mediaF);
-	//return (mediaF);
+	//printf("A media da diagonal da matriz de doubles eh %lf\n",mediaF);
+	return (mediaF);
 }
 
 
@@ -139,20 +133,37 @@ main(){
 
 	int x[TAM], y[TAM], xy[TAM][TAM];
 	double z[TAM], p[TAM], zp[TAM][TAM], mediaDoub;
-	int i, j, maiorInt;
+	int i, u, maiorInt;
 
 	itemA(x, y, xy, TAM);
-	//itemB(z, p, zp, TAM);
+	itemB(z, p, zp, TAM);
 	itemC(x, TAM);
 	itemC(y, TAM);
 	
-	//itemD(z, TAM);
-	//itemD(p, TAM);
+	itemD(z, TAM);
+	itemD(p, TAM);
 
-	//maiorInt = itemE(x, y, xy, TAM);
-	itemE(x, y, xy, TAM, MAX);
-	//mediaDoub = itemF(z, p, zp, TAM);
+	maiorInt = itemE(x, y, xy, TAM, MAX);
+	//itemE(x, y, xy, TAM, MAX);
+	mediaDoub = itemF(z, p, zp, TAM);
 	//itemF(z, p, zp, TAM);
-	//printf("SOMA = %i\n",maiorInt);
-	//printf("MEDIA = %lf\n",mediaDoub); 
+	printf("A soma dos %i maiores eh: %i\n",TAM, maiorInt);
+	printf("A media da diagonal da matriz de doubles eh %lf\n",mediaDoub); 
+	printf("\n\n\n\n");
+	printf("Para este exemplo a matriz de inteiros gerada ficou: \n");
+	printf("A matriz de doubles ficou: \n");
+	for(i=0;i<TAM;i++){
+		for(u=0;u<TAM;u++){
+			printf("%5d",xy[i][u]);
+		}
+		printf("\n");
+	}
+
+	printf("\nA matriz de doubles ficou: \n");
+	for(i=0;i<TAM;i++){
+		for(u=0;u<TAM;u++){
+			printf("%.1lf ",zp[i][u]);
+		}
+		printf("\n");
+	}
 }
