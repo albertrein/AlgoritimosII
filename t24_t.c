@@ -93,13 +93,13 @@ int main(){
 	printf("Disciplina: %s %s\n", a.codDISC, a.disc);
 	printf("Aluno     : %s %s\n\n",a.codAL, a.nomeAL);
 	
-	printf("%i trabalhos",a.quantTRAB);
-	for(i=0;i<a.quantTRAB;i++){
+	printf("%i trabalhos\n",a.quantTRAB);
+	/*for(i=0;i<a.quantTRAB;i++){
 		j=0;
-		printf("	TRAB ")	
-	}
-	printf("Total pontos dos Trabalhos: %lf",a.somaTRAB);
-	printf("Prova %lf (peso %lf)",a.notaPROVA,a.pesoPROVA);
-	printf("A nota final eh %lf\n",soma);
+		printf("	TRAB ");
+	}*/
+	printf("Total pontos dos Trabalhos: %.1lf\n",a.somaTRAB/10);
+	printf("Prova %.1lf (peso %.1lf)\n",a.notaPROVA,a.pesoPROVA);
+	printf("A nota final eh %.1lf\n",soma);
 
 }
