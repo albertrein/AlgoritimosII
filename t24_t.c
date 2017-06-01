@@ -17,7 +17,8 @@ struct ALUNOS {
 };
 
 int main(){
-	int i, j, cont=1;
+
+	int i, j, cont=1, aux1=0, aux2=1;
 	double x = 0, soma=0;
 
 	struct ALUNOS a;
@@ -91,13 +92,13 @@ int main(){
 
 	printf("\nRELATORIO DOS DADOS DIGITADOS\n\n");
 	printf("Disciplina: %s %s\n", a.codDISC, a.disc);
-	printf("Aluno     : %s %s\n\n",a.codAL, a.nomeAL);
-	
+	printf("Aluno     : %s %s\n\n",a.codAL, a.nomeAL);	
 	printf("%i trabalhos\n",a.quantTRAB);
-	/*for(i=0;i<a.quantTRAB;i++){
-		j=0;
-		printf("	TRAB ");
-	}*/
+	j=1;
+	for(i=0;i<a.quantTRAB;i++){
+		printf("	TRAB %i: %.1lf (peso %.1lf) \n",j, a.notasTRAB[aux1][i], a.notasTRAB[aux2][i]);
+		j++;		
+	}
 	printf("Total pontos dos Trabalhos: %.1lf\n",a.somaTRAB/10);
 	printf("Prova %.1lf (peso %.1lf)\n",a.notaPROVA,a.pesoPROVA);
 	printf("A nota final eh %.1lf\n",soma);
