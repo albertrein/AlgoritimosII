@@ -2,6 +2,7 @@
 #include <string.h>
 #define STRTAM 40
 #define MAX 10
+#define MAXALUNOS 20
 
 struct ALUNOS {
 	char disc[STRTAM];
@@ -23,27 +24,15 @@ struct ALUNOS leitura(){
 	int i, j, cont=1;
 	double x = 0, soma=0, somaPesos=0;
 
+	//setbuf(stdin, NULL);
 	
-	//le disciplina	
-	do{
-		printf("# Digite o nome da disciplina: \n");
-		fgets(a.disc, STRTAM, stdin);
-		strtok(a.disc, "\n");
-	}while(strlen(a.disc)<1);
-	
-	//le CóDIGO da disciplina	
-	do{
-		printf("# Digite o codigo da disciplina: \n");
-		fgets(a.codDISC, STRTAM, stdin);
-		strtok(a.codDISC, "\n");
-	}while(strlen(a.codDISC)<1);
 
 	//le o nome do aluno	
 	do{
 		printf("# Digite o nome Aluno: \n");
 		fgets(a.nomeAL, STRTAM, stdin);
 		strtok(a.nomeAL, "\n");
-	}while(strlen(a.nomeAL)<1);
+	}while(strlen(a.nomeAL)<2);
 
 	//le o COD do aluno	
 	do{
@@ -88,14 +77,14 @@ struct ALUNOS leitura(){
 	//le a nota da prova
 	printf("# Digite nota da prova: \n");
 	scanf("%lf",&a.notaPROVA);
-	a.pesoPROVA = MAXTRAB - somaPesos;
+	a.pesoPROVA = MAX - somaPesos;
 	a.soma = a.soma + ((a.notaPROVA*a.pesoPROVA)/10);
 		
 
 	printf("\n______________________________TESTE DA MATRIZ_______________________________________\n");
 	for(i=0;i<3;i++){
-		for(j=0;j<MAXTRAB;j++){
-			printf("%.5lf	",a.notasTRAB[i][j]);
+		for(j=0;j<MAX;j++){
+			printf("%.5lf	",a.notaTRAB[i][j]);
 		}
 		printf("\n");
 	}
@@ -127,13 +116,33 @@ printf("%s %d %lf\n", f.nomef, f.idadef, f.salariof);
 
 int main(){
 	struct ALUNOS aa[2];
-	int i, j, aux1=0, aux2=1, r;
+	int i, j, aux1=0, aux2=1, r, nAlunos;
+	char disc[STRTAM], codDISC[STRTAM];
+
+	//le disciplina	
+	do{
+		printf("# Digite o nome da disciplina: \n");
+		fgets(disc, STRTAM, stdin);
+		strtok(disc, "\n");
+	}while(strlen(disc)<1);
 	
-	for(i=0;i<2;i++){
+	//le CóDIGO da disciplina	
+	do{
+		printf("# Digite o codigo da disciplina: \n");
+		fgets(codDISC, STRTAM, stdin);
+		strtok(codDISC, "\n");
+	}while(strlen(codDISC)<1);
+
+	do{
+		printf("Digite quantos alunos voce quer (%i MAXIMO)\n",MAXALUNOS);
+		scanf("%i",&nAlunos);
+	}while(nAlunos>MAXALUNOS);
+	
+	for(i=0;i<nAlunos;i++){
 		aa[i] = leitura();	
-	}/*
-	printf("Disciplina: %s %s\n", aa[0].codDISC, aa[r].disc);
-	for(r=0;r<2;r++){
+	}
+	printf("Disciplina: %s %s\n",codDISC, disc);
+	for(r=0;r<nAlunos;r++){
 		aux1=0;
 		aux2=1;
 		printf("\nRELATORIO %i\n\n",r);		
@@ -144,11 +153,11 @@ int main(){
 			printf("	TRAB %i: %.1lf (peso %.1lf) \n",j, aa[r].notaTRAB[aux1][i], aa[r].notaTRAB[aux2][i]);
 			j++;		
 		}
-		printf("Total pontos dos Trabalhos: %.1lf\n", aa[r].somaTRAB/10);
+		printf("Total pontos dos Trabalhos: %.1lf\n", aa[r].somaTRAB);
 		printf("Prova %.1lf (peso %.1lf)\n", aa[r].notaPROVA, aa[r].pesoPROVA);
 		printf("A nota final eh %.1lf\n", aa[r].soma);		
 		printf("\n\n");
-	}*/
+	}
 	
 	
 }
